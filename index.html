@@ -10,21 +10,22 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg: #FAFAF8;
-      --surface: #FFFFFF;
-      --text: #1F2328;
-      --text-body: #3F444B;
-      --text-muted: #5F646B;
-      --border: #E6E6E1;
-      --underline: #CFCFC8;
-      --chip-bg: #F2F2EE;
-      --chip-border: #E3E3DD;
-      --grid-line: #EDEDE8;
-      --glow-line: rgba(29, 78, 216, 0.45);
-      --link-hover: #1D4ED8;
-      --accent: #5F646B;      /* section heading colour */
-      --grid-size: 40px;
-      --glow-radius: 220px;
+      color-scheme: dark;
+      --bg: #0E0F11;
+      --surface: #16181B;
+      --text: #E8E9EB;
+      --text-body: #B9BDC3;
+      --text-muted: #8B9097;
+      --border: #26292E;
+      --underline: #4A4E55;
+      --chip-bg: #1E2125;
+      --chip-border: #2E3238;
+      --grid-line: rgba(255, 255, 255, 0.045);
+      --glow-line: rgba(255, 255, 255, 0.22);  /* soft white, stays behind text */
+      --link-hover: #FFFFFF;
+      --accent: #8B9097;      /* section heading colour */
+      --grid-size: 24px;
+      --glow-radius: 200px;
       --mx: -1000px;          /* cursor position, set by script */
       --my: -1000px;
     }
@@ -113,6 +114,9 @@
       text-underline-offset: 4px;
     }
 
+    .links a:hover,
+    .inline-link:hover { text-decoration-color: var(--link-hover); }
+
     .links a { padding: 6px 0; }
     .inline-link { text-underline-offset: 3px; }
 
@@ -191,13 +195,37 @@
     }
 
     .chip {
-      padding: 1px 8px;
+      --c: var(--text-muted);   /* brand colour, set per tool below */
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 1px 9px 1px 7px;
       border-radius: 999px;
-      background: var(--chip-bg);
-      border: 1px solid var(--chip-border);
+      background: color-mix(in srgb, var(--c) 14%, var(--chip-bg));
+      border: 1px solid color-mix(in srgb, var(--c) 38%, var(--chip-border));
       line-height: 1.6;
-      color: var(--text-body);
+      color: color-mix(in srgb, var(--c) 30%, var(--text));
     }
+
+    /* Logo: monochrome SVG used as a mask, filled with the brand colour */
+    .chip[data-tool]::before {
+      content: "";
+      width: 12px;
+      height: 12px;
+      flex: none;
+      background: var(--c);
+      -webkit-mask: var(--icon) center / contain no-repeat;
+              mask: var(--icon) center / contain no-repeat;
+    }
+
+    /* Brand colours (lightened where needed to read on the dark background) */
+    .chip[data-tool="python"]     { --c: #5A9FD4; --icon: url("https://cdn.jsdelivr.net/npm/simple-icons@13.21.0/icons/python.svg"); }
+    .chip[data-tool="pytorch"]    { --c: #EE4C2C; --icon: url("https://cdn.jsdelivr.net/npm/simple-icons@13.21.0/icons/pytorch.svg"); }
+    .chip[data-tool="colab"]      { --c: #F9AB00; --icon: url("https://cdn.jsdelivr.net/npm/simple-icons@13.21.0/icons/googlecolab.svg"); }
+    .chip[data-tool="react"]      { --c: #61DAFB; --icon: url("https://cdn.jsdelivr.net/npm/simple-icons@13.21.0/icons/react.svg"); }
+    .chip[data-tool="typescript"] { --c: #4A8FE0; --icon: url("https://cdn.jsdelivr.net/npm/simple-icons@13.21.0/icons/typescript.svg"); }
+    .chip[data-tool="vite"]       { --c: #A78BFA; --icon: url("https://cdn.jsdelivr.net/npm/simple-icons@13.21.0/icons/vite.svg"); }
+    .chip[data-tool="postgresql"] { --c: #6E93F0; --icon: url("https://cdn.jsdelivr.net/npm/simple-icons@13.21.0/icons/postgresql.svg"); }
 
     footer {
       padding-top: 24px;
@@ -267,9 +295,9 @@
               <span class="date">Research · In progress</span>
             </div>
             <div class="chips">
-              <span class="chip">Python</span>
-              <span class="chip">PyTorch</span>
-              <span class="chip">Google Colab</span>
+              <span class="chip" data-tool="python">Python</span>
+              <span class="chip" data-tool="pytorch">PyTorch</span>
+              <span class="chip" data-tool="colab">Google Colab</span>
             </div>
             <ul>
               <li>Developed a SimCLR contrastive learning framework in PyTorch to extract robust features from high-dimensional data (CelebA and FairFace) without manual labelling</li>
@@ -280,9 +308,9 @@
           <article class="entry">
             <h3><a href="#">Reinforcement Learning Agent for Atari Gameplay</a></h3>
             <div class="chips">
-              <span class="chip">Python</span>
-              <span class="chip">PyTorch</span>
-              <span class="chip">Google Colab</span>
+              <span class="chip" data-tool="python">Python</span>
+              <span class="chip" data-tool="pytorch">PyTorch</span>
+              <span class="chip" data-tool="colab">Google Colab</span>
             </div>
             <ul>
               <li>Implemented a Proximal Policy Optimization (PPO) agent with an actor-critic architecture to play Donkey Kong via Gymnasium</li>
@@ -294,10 +322,10 @@
           <article class="entry">
             <h3><a href="#">Academic Integrity Code Submission System</a></h3>
             <div class="chips">
-              <span class="chip">React</span>
-              <span class="chip">TypeScript</span>
-              <span class="chip">Vite</span>
-              <span class="chip">PostgreSQL</span>
+              <span class="chip" data-tool="react">React</span>
+              <span class="chip" data-tool="typescript">TypeScript</span>
+              <span class="chip" data-tool="vite">Vite</span>
+              <span class="chip" data-tool="postgresql">PostgreSQL</span>
             </div>
             <ul>
               <li>Led frontend development of a plagiarism detection web app in an Agile team, building a single-page application with React 19, TypeScript and Vite</li>
