@@ -1,413 +1,704 @@
 <!doctype html>
 <html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Ray Huang</title>
-  <meta name="description" content="Ray Huang — computer science student at Brock University working on machine learning and data pipelines.">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-  <style>
-    :root {
-      color-scheme: dark;
-      --bg: #0E0F11;
-      --surface: #16181B;
-      --text: #E8E9EB;
-      --text-body: #B9BDC3;
-      --text-muted: #8B9097;
-      --border: #26292E;
-      --underline: #4A4E55;
-      --chip-bg: #1E2125;
-      --chip-border: #2E3238;
-      --grid-line: rgba(255, 255, 255, 0.045);
-      --glow-line: rgba(255, 255, 255, 0.22);  /* soft white, stays behind text */
-      --link-hover: #FFFFFF;
-      --accent: #8B9097;      /* section heading colour */
-      --grid-size: 24px;
-      --glow-radius: 200px;
-      --mx: -1000px;          /* cursor position, set by script */
-      --my: -1000px;
-    }
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>Ray Huang</title>
+        <meta
+            name="description"
+            content="Ray Huang — computer science student at Brock University working on fairness in machine learning and exploring data."
+        />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap"
+            rel="stylesheet"
+        />
+        <style>
+            :root {
+                color-scheme: dark;
+                --bg: #0e0f11;
+                --surface: #16181b;
+                --text: #e8e9eb;
+                --text-body: #b9bdc3;
+                --text-muted: #8b9097;
+                --border: #26292e;
+                --underline: #4a4e55;
+                --chip-bg: #1e2125;
+                --chip-border: #2e3238;
+                --grid-line: rgba(255, 255, 255, 0.045);
+                --glow-line: rgba(255, 255, 255, 0.22); /* soft white, stays behind text */
+                --link-hover: #ffffff;
+                --accent: #8b9097; /* section heading colour */
+                --grid-size: 24px;
+                --glow-radius: 200px;
+                --mx: -1000px; /* cursor position, set by script */
+                --my: -1000px;
+            }
 
-    * { box-sizing: border-box; }
+            * {
+                box-sizing: border-box;
+            }
 
-    body {
-      margin: 0;
-      background: var(--bg);
-      color: var(--text);
-      font-family: Inter, system-ui, sans-serif;
-      font-size: 16px;
-      line-height: 1.6;
-    }
+            body {
+                margin: 0;
+                background: var(--bg);
+                color: var(--text);
+                font-family: Inter, system-ui, sans-serif;
+                font-size: 16px;
+                line-height: 1.6;
+            }
 
-    a { color: var(--text); }
-    a:hover { color: var(--link-hover); }
+            a {
+                color: var(--text);
+            }
+            a:hover {
+                color: var(--link-hover);
+            }
 
-    /* ---------- Background grid + cursor glow ---------- */
-    .page {
-      position: relative;
-      overflow: hidden;
-      min-height: 100vh;
-    }
+            /* ---------- Background grid + cursor glow ---------- */
+            .page {
+                position: relative;
+                overflow: hidden;
+                min-height: 100vh;
+            }
 
-    .grid,
-    .grid-glow {
-      position: absolute;
-      inset: 0;
-      pointer-events: none;
-      background-size: var(--grid-size) var(--grid-size);
-    }
+            .grid,
+            .grid-glow {
+                position: absolute;
+                inset: 0;
+                pointer-events: none;
+                background-size: var(--grid-size) var(--grid-size);
+            }
 
-    .grid {
-      background-image:
-        linear-gradient(to right, var(--grid-line) 1px, transparent 1px),
-        linear-gradient(to bottom, var(--grid-line) 1px, transparent 1px);
-    }
+            .grid {
+                background-image:
+                    linear-gradient(to right, var(--grid-line) 1px, transparent 1px),
+                    linear-gradient(to bottom, var(--grid-line) 1px, transparent 1px);
+            }
 
-    .grid-glow {
-      opacity: 0;
-      transition: opacity 300ms ease;
-      background-image:
-        linear-gradient(to right, var(--glow-line) 1px, transparent 1px),
-        linear-gradient(to bottom, var(--glow-line) 1px, transparent 1px);
-      -webkit-mask-image: radial-gradient(var(--glow-radius) circle at var(--mx) var(--my), #000 0%, rgba(0,0,0,0.35) 45%, transparent 100%);
-              mask-image: radial-gradient(var(--glow-radius) circle at var(--mx) var(--my), #000 0%, rgba(0,0,0,0.35) 45%, transparent 100%);
-    }
+            .grid-glow {
+                opacity: 0;
+                transition: opacity 300ms ease;
+                background-image:
+                    linear-gradient(to right, var(--glow-line) 1px, transparent 1px),
+                    linear-gradient(to bottom, var(--glow-line) 1px, transparent 1px);
+                -webkit-mask-image: radial-gradient(
+                    var(--glow-radius) circle at var(--mx) var(--my),
+                    #000 0%,
+                    rgba(0, 0, 0, 0.35) 45%,
+                    transparent 100%
+                );
+                mask-image: radial-gradient(
+                    var(--glow-radius) circle at var(--mx) var(--my),
+                    #000 0%,
+                    rgba(0, 0, 0, 0.35) 45%,
+                    transparent 100%
+                );
+            }
 
-    .page.is-hovering .grid-glow { opacity: 1; }
+            .page.is-hovering .grid-glow {
+                opacity: 1;
+            }
 
-    @media (prefers-reduced-motion: reduce) {
-      .grid-glow { transition: none; }
-    }
+            @media (prefers-reduced-motion: reduce) {
+                .grid-glow {
+                    transition: none;
+                }
+            }
 
-    /* ---------- Layout ---------- */
-    main {
-      position: relative;
-      max-width: 720px;
-      margin: 0 auto;
-      padding: 96px 24px 64px;
-    }
+            /* ---------- Layout ---------- */
+            main {
+                position: relative;
+                max-width: 720px;
+                margin: 0 auto;
+                padding: 96px 24px 64px;
+            }
 
-    header { margin-bottom: 64px; }
+            header {
+                margin-bottom: 64px;
+            }
 
-    h1 {
-      margin: 0;
-      font-size: 32px;
-      font-weight: 600;
-      letter-spacing: -0.02em;
-      line-height: 1.2;
-    }
+            h1 {
+                margin: 0;
+                font-size: 32px;
+                font-weight: 600;
+                letter-spacing: -0.02em;
+                line-height: 1.2;
+            }
 
-    .links {
-      margin-top: 12px;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 4px 20px;
-      font-size: 15px;
-    }
+            .links {
+                margin-top: 12px;
+                display: flex;
+                flex-wrap: wrap;
+                gap: 4px 20px;
+                font-size: 15px;
+            }
 
-    .links a,
-    .inline-link {
-      text-decoration: underline;
-      text-decoration-color: var(--underline);
-      text-underline-offset: 4px;
-    }
+            .links a,
+            .inline-link {
+                text-decoration: underline;
+                text-decoration-color: var(--underline);
+                text-underline-offset: 4px;
+            }
 
-    .links a:hover,
-    .inline-link:hover { text-decoration-color: var(--link-hover); }
+            .links a:hover,
+            .inline-link:hover {
+                text-decoration-color: var(--link-hover);
+            }
 
-    .links a { padding: 6px 0; }
-    .inline-link { text-underline-offset: 3px; }
+            .links a {
+                padding: 6px 0;
+            }
+            .inline-link {
+                text-underline-offset: 3px;
+            }
 
-    .bio {
-      margin: 24px 0 0;
-      color: var(--text-body);
-    }
+            .bio {
+                margin: 24px 0 0;
+                color: var(--text-body);
+            }
 
-    section { margin-bottom: 56px; }
-    section:last-of-type { margin-bottom: 72px; }
+            section {
+                margin-bottom: 56px;
+            }
+            section:last-of-type {
+                margin-bottom: 72px;
+            }
 
-    h2 {
-      margin: 0 0 16px;
-      font-size: 13px;
-      font-weight: 600;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: var(--accent);
-    }
+            h2 {
+                margin: 0 0 16px;
+                font-size: 13px;
+                font-weight: 600;
+                letter-spacing: 0.08em;
+                text-transform: uppercase;
+                color: var(--accent);
+            }
 
-    .stack {
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
-    }
+            .stack {
+                display: flex;
+                flex-direction: column;
+                gap: 16px;
+            }
 
-    /* ---------- Entry cards ---------- */
-    .entry {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 22px 24px;
-    }
+            /* ---------- Entry cards ---------- */
+            .entry {
+                background: var(--surface);
+                border: 1px solid var(--border);
+                border-radius: 12px;
+                padding: 22px 24px;
+            }
 
-    .entry-head {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-between;
-      gap: 0 16px;
-    }
+            /* Logo at the bottom of an entry */
+            .entry-logo {
+                display: block;
+                width: 120px;
+                height: auto;
+                margin-top: 14px;
+                border-radius: 8px;
+            }
 
-    h3 {
-      margin: 0;
-      font-size: 16px;
-      font-weight: 600;
-    }
+            .entry-head {
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: space-between;
+                gap: 0 16px;
+            }
 
-    h3 a { text-decoration: none; }
+            h3 {
+                margin: 0;
+                font-size: 16px;
+                font-weight: 600;
+            }
 
-    .date,
-    .meta {
-      font-size: 14px;
-      color: var(--text-muted);
-    }
+            h3 a {
+                text-decoration: none;
+            }
 
-    .meta { margin: 2px 0 0; }
+            .date,
+            .meta {
+                font-size: 14px;
+                color: var(--text-muted);
+            }
 
-    .entry ul {
-      margin: 12px 0 0;
-      padding-left: 20px;
-      font-size: 15px;
-      color: var(--text-body);
-    }
+            .meta {
+                margin: 2px 0 0;
+            }
 
-    .entry li { margin: 0 0 6px; }
-    .entry li:last-child { margin-bottom: 0; }
+            .desc {
+                margin: 12px 0 0;
+                font-size: 15px;
+                color: var(--text-body);
+            }
 
-    /* ---------- Tech chips ---------- */
-    .chips {
-      margin-top: 10px;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 5px;
-      font-size: 12px;
-      font-weight: 500;
-    }
+            .desc + .desc {
+                margin-top: 10px;
+            }
 
-    .chip {
-      --c: var(--text-muted);   /* brand colour, set per tool below */
-      display: inline-flex;
-      align-items: center;
-      gap: 5px;
-      padding: 1px 9px 1px 7px;
-      border-radius: 999px;
-      background: color-mix(in srgb, var(--c) 14%, var(--chip-bg));
-      border: 1px solid color-mix(in srgb, var(--c) 38%, var(--chip-border));
-      line-height: 1.6;
-      color: color-mix(in srgb, var(--c) 30%, var(--text));
-    }
+            .entry ul {
+                margin: 12px 0 0;
+                padding-left: 20px;
+                font-size: 15px;
+                color: var(--text-body);
+            }
 
-    /* Logo: monochrome SVG used as a mask, filled with the brand colour */
-    .chip[data-tool]::before {
-      content: "";
-      width: 12px;
-      height: 12px;
-      flex: none;
-      background: var(--c);
-      -webkit-mask: var(--icon) center / contain no-repeat;
-              mask: var(--icon) center / contain no-repeat;
-    }
+            .entry li {
+                margin: 0 0 6px;
+            }
+            .entry li:last-child {
+                margin-bottom: 0;
+            }
 
-    /* Brand colours (lightened where needed to read on the dark background) */
-    .chip[data-tool="python"]     { --c: #5A9FD4; --icon: url("https://cdn.jsdelivr.net/npm/simple-icons@13.21.0/icons/python.svg"); }
-    .chip[data-tool="pytorch"]    { --c: #EE4C2C; --icon: url("https://cdn.jsdelivr.net/npm/simple-icons@13.21.0/icons/pytorch.svg"); }
-    .chip[data-tool="colab"]      { --c: #F9AB00; --icon: url("https://cdn.jsdelivr.net/npm/simple-icons@13.21.0/icons/googlecolab.svg"); }
-    .chip[data-tool="react"]      { --c: #61DAFB; --icon: url("https://cdn.jsdelivr.net/npm/simple-icons@13.21.0/icons/react.svg"); }
-    .chip[data-tool="typescript"] { --c: #4A8FE0; --icon: url("https://cdn.jsdelivr.net/npm/simple-icons@13.21.0/icons/typescript.svg"); }
-    .chip[data-tool="vite"]       { --c: #A78BFA; --icon: url("https://cdn.jsdelivr.net/npm/simple-icons@13.21.0/icons/vite.svg"); }
-    .chip[data-tool="postgresql"] { --c: #6E93F0; --icon: url("https://cdn.jsdelivr.net/npm/simple-icons@13.21.0/icons/postgresql.svg"); }
+            /* ---------- Tech chips ---------- */
+            .chips {
+                margin-top: 10px;
+                display: flex;
+                flex-wrap: wrap;
+                gap: 5px;
+                font-size: 12px;
+                font-weight: 500;
+            }
 
-    footer {
-      padding-top: 24px;
-      border-top: 1px solid var(--border);
-      font-size: 14px;
-      color: var(--text-muted);
-    }
-  </style>
-</head>
-<body>
-  <div class="page" id="page">
-    <div class="grid" aria-hidden="true"></div>
-    <div class="grid-glow" aria-hidden="true"></div>
+            .chip {
+                --c: var(--text-muted); /* brand colour, set per tool below */
+                display: inline-flex;
+                align-items: center;
+                gap: 5px;
+                padding: 1px 9px 1px 7px;
+                border-radius: 999px;
+                background: color-mix(in srgb, var(--c) 14%, var(--chip-bg));
+                border: 1px solid color-mix(in srgb, var(--c) 38%, var(--chip-border));
+                line-height: 1.6;
+                color: color-mix(in srgb, var(--c) 30%, var(--text));
+            }
 
-    <main>
-      <header>
-        <h1>Ray Huang</h1>
-        <nav class="links" aria-label="Links">
-          <a href="https://github.com/icedtofu">GitHub</a>
-          <a href="https://www.linkedin.com/in/ray-huang-rh">LinkedIn</a>
-          <a href="Ray_Huang_Resume.pdf" target="_blank" rel="noopener noreferrer">Resume</a>
-        </nav>
-        <p class="bio">Computer science student at Brock University (AI concentration). I work on machine learning — mostly self-supervised and reinforcement learning — and the data pipelines underneath it.</p>
-      </header>
+            /* Logo: monochrome SVG used as a mask, filled with the brand colour */
+            .chip[data-tool]:not(.no-logo)::before {
+                content: "";
+                width: 12px;
+                height: 12px;
+                flex: none;
+                background: var(--c);
+                -webkit-mask: var(--icon) center / contain no-repeat;
+                mask: var(--icon) center / contain no-repeat;
+            }
 
-      <section>
-        <h2>Education</h2>
-        <article class="entry">
-          <div class="entry-head">
-            <h3>Brock University</h3>
-            <span class="date">Sep 2022 – Apr 2027</span>
-          </div>
-          <p class="meta">Honours BSc, Computer Science (AI Concentration)</p>
-          <ul>
-            <li>GPA: 3.8</li>
-            <li>Relevant coursework: Data Structures and Algorithms, Database Management, Machine Learning, Reinforcement Learning, Programming with Big Data</li>
-            <li>Brock Scholars Award (95%+)</li>
-          </ul>
-        </article>
-      </section>
+            /* Brand colours (lightened where needed to read on the dark background) */
+            .chip[data-tool="python"] {
+                --c: #5a9fd4;
+                --icon: url("https://cdn.jsdelivr.net/npm/simple-icons@13.21.0/icons/python.svg");
+            }
+            .chip[data-tool="pytorch"] {
+                --c: #ee4c2c;
+                --icon: url("https://cdn.jsdelivr.net/npm/simple-icons@13.21.0/icons/pytorch.svg");
+            }
+            .chip[data-tool="colab"] {
+                --c: #f9ab00;
+                --icon: url("https://cdn.jsdelivr.net/npm/simple-icons@13.21.0/icons/googlecolab.svg");
+            }
+            .chip[data-tool="react"] {
+                --c: #61dafb;
+                --icon: url("https://cdn.jsdelivr.net/npm/simple-icons@13.21.0/icons/react.svg");
+            }
+            .chip[data-tool="typescript"] {
+                --c: #4a8fe0;
+                --icon: url("https://cdn.jsdelivr.net/npm/simple-icons@13.21.0/icons/typescript.svg");
+            }
+            .chip[data-tool="vite"] {
+                --c: #a78bfa;
+                --icon: url("https://cdn.jsdelivr.net/npm/simple-icons@13.21.0/icons/vite.svg");
+            }
+            .chip[data-tool="postgresql"] {
+                --c: #6e93f0;
+                --icon: url("https://cdn.jsdelivr.net/npm/simple-icons@13.21.0/icons/postgresql.svg");
+            }
+            .chip[data-tool="java"] {
+                --c: #ed8b00;
+                --icon: url("https://cdn.jsdelivr.net/npm/simple-icons@13.21.0/icons/openjdk.svg");
+            }
+            .chip[data-tool="javascript"] {
+                --c: #f7df1e;
+                --icon: url("https://cdn.jsdelivr.net/npm/simple-icons@13.21.0/icons/javascript.svg");
+            }
+            .chip[data-tool="html"] {
+                --c: #e96a3f;
+                --icon: url("https://cdn.jsdelivr.net/npm/simple-icons@13.21.0/icons/html5.svg");
+            }
+            .chip[data-tool="css"] {
+                --c: #4d84f5;
+                --icon: url("https://cdn.jsdelivr.net/npm/simple-icons@13.21.0/icons/css3.svg");
+            }
+            .chip[data-tool="git"] {
+                --c: #f05032;
+                --icon: url("https://cdn.jsdelivr.net/npm/simple-icons@13.21.0/icons/git.svg");
+            }
+            .chip[data-tool="github"] {
+                --c: #e8e9eb;
+                --icon: url("https://cdn.jsdelivr.net/npm/simple-icons@13.21.0/icons/github.svg");
+            }
+            .chip[data-tool="numpy"] {
+                --c: #4dabcf;
+                --icon: url("https://cdn.jsdelivr.net/npm/simple-icons@13.21.0/icons/numpy.svg");
+            }
+            .chip[data-tool="pandas"] {
+                --c: #e8559f;
+                --icon: url("https://cdn.jsdelivr.net/npm/simple-icons@13.21.0/icons/pandas.svg");
+            }
+            .chip[data-tool="sklearn"] {
+                --c: #f7931e;
+                --icon: url("https://cdn.jsdelivr.net/npm/simple-icons@13.21.0/icons/scikitlearn.svg");
+            }
+            .chip[data-tool="linux"] {
+                --c: #fcc624;
+                --icon: url("https://cdn.jsdelivr.net/npm/simple-icons@13.21.0/icons/linux.svg");
+            }
+            .chip[data-tool="nodejs"] {
+                --c: #6cc24a;
+                --icon: url("https://cdn.jsdelivr.net/npm/simple-icons@13.21.0/icons/nodedotjs.svg");
+            }
+            .chip[data-tool="tensorflow"] {
+                --c: #ff8f00;
+                --icon: url("https://cdn.jsdelivr.net/npm/simple-icons@13.21.0/icons/tensorflow.svg");
+            }
+            .chip[data-tool="docker"] {
+                --c: #2496ed;
+                --icon: url("https://cdn.jsdelivr.net/npm/simple-icons@13.21.0/icons/docker.svg");
+            }
+            /* No brand logo in the icon set: SQL gets a generic database glyph, the rest show colour only */
+            .chip[data-tool="sql"] {
+                --c: #9aa4b2;
+                --icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 2C7.6 2 4 3.3 4 5v14c0 1.7 3.6 3 8 3s8-1.3 8-3V5c0-1.7-3.6-3-8-3zm0 2c3.6 0 6 .9 6 1s-2.4 1-6 1-6-.9-6-1 2.4-1 6-1z'/%3E%3C/svg%3E");
+            }
+            .chip[data-tool="matplotlib"] {
+                --c: #5b9bd5;
+            }
+            .chip[data-tool="vscode"] {
+                --c: #3ea6f2;
+            }
 
-      <section>
-        <h2>Experience</h2>
-        <article class="entry">
-          <div class="entry-head">
-            <h3>Research Assistant, Data Pipeline &amp; Automation</h3>
-            <span class="date">May – Dec 2024</span>
-          </div>
-          <p class="meta">Brock University</p>
-          <ul>
-            <li>Engineered a Python-based ETL pipeline to scrape, clean and structure academic integrity policies across 100+ post-secondary institutions, automating extraction with 95% accuracy and flagging edge cases for manual review</li>
-            <li>Applied NLP and text-modelling techniques with scikit-learn to validate data quality and prepare structured policy data for analysis</li>
-            <li>Awarded a competitive $5,000 Match of Minds research grant for a project analyzing academic integrity policy trends across Canada</li>
-            <li>Published and maintained a reproducible <a class="inline-link" href="#">dataset</a> used by the research community, with 2,700+ downloads</li>
-          </ul>
-        </article>
-      </section>
+            /* ---------- Technical skills ---------- */
+            .skill-group + .skill-group {
+                margin-top: 16px;
+            }
 
-      <section>
-        <h2>Projects</h2>
-        <div class="stack">
+            .skill-group h3 {
+                font-size: 14px;
+                font-weight: 500;
+                color: var(--text-muted);
+            }
 
-          <article class="entry">
-            <div class="entry-head">
-              <h3><a href="#">Self-Supervised Learning &amp; Algorithmic Fairness</a></h3>
-              <span class="date">Research · In progress</span>
-            </div>
-            <div class="chips">
-              <span class="chip" data-tool="python">Python</span>
-              <span class="chip" data-tool="pytorch">PyTorch</span>
-              <span class="chip" data-tool="colab">Google Colab</span>
-            </div>
-            <ul>
-              <li>Developed a SimCLR contrastive learning framework in PyTorch to extract robust features from high-dimensional data (CelebA and FairFace) without manual labelling</li>
-              <li>Designed and ran an audit of augmentation pipelines, evaluating their impact on model fairness and subgroup alignment to detect algorithmic bias</li>
-            </ul>
-          </article>
+            .skill-group .chips {
+                margin-top: 8px;
+            }
 
-          <article class="entry">
-            <h3><a href="#">Reinforcement Learning Agent for Atari Gameplay</a></h3>
-            <div class="chips">
-              <span class="chip" data-tool="python">Python</span>
-              <span class="chip" data-tool="pytorch">PyTorch</span>
-              <span class="chip" data-tool="colab">Google Colab</span>
-            </div>
-            <ul>
-              <li>Implemented a Proximal Policy Optimization (PPO) agent with an actor-critic architecture to play Donkey Kong via Gymnasium</li>
-              <li>Built a parallelized training pipeline across 8 concurrent environments with frame preprocessing (grayscale, frame-skipping, resizing) to stabilize and accelerate learning</li>
-              <li>Tuned hyperparameters across training runs, evaluating performance by mean episode reward and standard deviation</li>
-            </ul>
-          </article>
+            footer {
+                padding-top: 24px;
+                border-top: 1px solid var(--border);
+                font-size: 14px;
+                color: var(--text-muted);
+            }
+        </style>
+    </head>
+    <body>
+        <div class="page" id="page">
+            <div class="grid" aria-hidden="true"></div>
+            <div class="grid-glow" aria-hidden="true"></div>
 
-          <article class="entry">
-            <h3><a href="#">Academic Integrity Code Submission System</a></h3>
-            <div class="chips">
-              <span class="chip" data-tool="react">React</span>
-              <span class="chip" data-tool="typescript">TypeScript</span>
-              <span class="chip" data-tool="vite">Vite</span>
-              <span class="chip" data-tool="postgresql">PostgreSQL</span>
-            </div>
-            <ul>
-              <li>Led frontend development of a plagiarism detection web app in an Agile team, building a single-page application with React 19, TypeScript and Vite</li>
-              <li>Designed an interactive code comparison view rendering side-by-side diffs with highlighted match regions and line numbers</li>
-              <li>Led the PostgreSQL 16 schema design for assignments, submissions and users, and integrated frontend views with microservices for instructor dashboards and JWT authentication</li>
-            </ul>
-          </article>
+            <main>
+                <header>
+                    <h1>Ray Huang</h1>
+                    <nav class="links" aria-label="Links">
+                        <a href="https://github.com/icedtofu">GitHub</a>
+                        <a href="https://www.linkedin.com/in/ray-huang-rh">LinkedIn</a>
+                        <a href="Ray_Huang_Resume.pdf" target="_blank" rel="noopener noreferrer"
+                            >Resume</a
+                        >
+                    </nav>
+                    <p class="bio">
+                        I'm a computer science student (AI concentration) at Brock University. Most
+                        of what I build and work on involves machine learning and data analysis,
+                        with a focus on fairness and explainability.
+                    </p>
+                </header>
 
-          <article class="entry">
-            <div class="entry-head">
-              <h3>Electricity Grid Telemetry Pipeline</h3>
-              <span class="date">In progress</span>
-            </div>
-            <ul>
-              <li>End-to-end pipeline for ingesting, cleaning and modelling electricity grid telemetry</li>
-            </ul>
-          </article>
+                <section>
+                    <h2>Education</h2>
+                    <article class="entry">
+                        <div class="entry-head">
+                            <h3>Brock University</h3>
+                            <span class="date">Sep 2022 – Apr 2027</span>
+                        </div>
+                        <p class="meta">Honours BSc, Computer Science (AI Concentration)</p>
+                        <ul>
+                            <li>GPA: 3.8</li>
+                            <li>Brock Scholars Award (95%+)</li>
+                        </ul>
+                        <img
+                            class="entry-logo"
+                            src="images/brock-logo.svg"
+                            alt="Brock University logo"
+                            width="152"
+                            height="92"
+                        />
+                    </article>
+                </section>
 
+                <section>
+                    <h2>Experience</h2>
+                    <article class="entry">
+                        <div class="entry-head">
+                            <h3>Research Assistant, Data Pipeline &amp; Automation</h3>
+                            <span class="date">May – Dec 2024</span>
+                        </div>
+                        <p class="meta">Brock University</p>
+                        <ul>
+                            <li>
+                                Engineered a Python-based ETL pipeline to scrape, clean and
+                                structure academic integrity policies across 100+ post-secondary
+                                institutions, automating extraction with 95% accuracy and flagging
+                                edge cases for manual review
+                            </li>
+                            <li>
+                                Applied NLP and text-modelling techniques with scikit-learn to
+                                validate data quality and prepare structured policy data for
+                                analysis
+                            </li>
+                            <li>
+                                Awarded a competitive $5,000 Match of Minds research grant for a
+                                project analyzing academic integrity policy trends across Canada
+                            </li>
+                            <li>
+                                Published and maintained a reproducible
+                                <a class="inline-link" href="#">dataset</a> used by the research
+                                community, with 2,700+ downloads
+                            </li>
+                        </ul>
+                        <img
+                            class="entry-logo"
+                            src="images/brock-logo.svg"
+                            alt="Brock University logo"
+                            width="152"
+                            height="92"
+                        />
+                    </article>
+                </section>
+
+                <section>
+                    <h2>Technical Skills</h2>
+                    <article class="entry">
+                        <div class="skill-group">
+                            <h3>Languages</h3>
+                            <div class="chips">
+                                <span class="chip" data-tool="python">Python</span>
+                                <span class="chip" data-tool="java">Java</span>
+                                <span class="chip" data-tool="javascript">JavaScript</span>
+                                <span class="chip" data-tool="typescript">TypeScript</span>
+                                <span class="chip" data-tool="sql">SQL</span>
+                                <span class="chip" data-tool="html">HTML</span>
+                                <span class="chip" data-tool="css">CSS</span>
+                            </div>
+                        </div>
+                        <div class="skill-group">
+                            <h3>Tools &amp; Frameworks</h3>
+                            <div class="chips">
+                                <span class="chip" data-tool="pytorch">PyTorch</span>
+                                <span class="chip" data-tool="tensorflow">TensorFlow</span>
+                                <span class="chip" data-tool="sklearn">scikit-learn</span>
+                                <span class="chip" data-tool="numpy">NumPy</span>
+                                <span class="chip" data-tool="pandas">Pandas</span>
+                                <span class="chip no-logo" data-tool="matplotlib">Matplotlib</span>
+                                <span class="chip" data-tool="react">React</span>
+                                <span class="chip" data-tool="nodejs">Node.js</span>
+                                <span class="chip" data-tool="postgresql">PostgreSQL</span>
+                                <span class="chip" data-tool="docker">Docker</span>
+                                <span class="chip" data-tool="git">Git</span>
+                                <span class="chip" data-tool="github">GitHub</span>
+                                <span class="chip" data-tool="linux">Linux</span>
+                                <span class="chip no-logo" data-tool="vscode">VS Code</span>
+                            </div>
+                        </div>
+                    </article>
+                </section>
+
+                <section>
+                    <h2>Projects</h2>
+                    <div class="stack">
+                        <article class="entry">
+                            <div class="entry-head">
+                                <h3>
+                                    <a href="#"
+                                        >Self-Supervised Learning &amp; Algorithmic Fairness</a
+                                    >
+                                </h3>
+                                <span class="date">Research · In progress</span>
+                            </div>
+                            <div class="chips">
+                                <span class="chip" data-tool="python">Python</span>
+                                <span class="chip" data-tool="pytorch">PyTorch</span>
+                                <span class="chip" data-tool="colab">Google Colab</span>
+                            </div>
+                            <ul>
+                                <li>
+                                    Developed a SimCLR contrastive learning framework in PyTorch to
+                                    extract robust features from high-dimensional data (CelebA and
+                                    FairFace) without manual labelling
+                                </li>
+                                <li>
+                                    Designed and ran an audit of augmentation pipelines, evaluating
+                                    their impact on model fairness and subgroup alignment to detect
+                                    algorithmic bias
+                                </li>
+                            </ul>
+                        </article>
+
+                        <article class="entry">
+                            <h3><a href="#">Reinforcement Learning Agent for Atari Gameplay</a></h3>
+                            <div class="chips">
+                                <span class="chip" data-tool="python">Python</span>
+                                <span class="chip" data-tool="pytorch">PyTorch</span>
+                                <span class="chip" data-tool="colab">Google Colab</span>
+                            </div>
+                            <ul>
+                                <li>
+                                    Implemented a Proximal Policy Optimization (PPO) agent with an
+                                    actor-critic architecture to play Donkey Kong via Gymnasium
+                                </li>
+                                <li>
+                                    Built a parallelized training pipeline across 8 concurrent
+                                    environments with frame preprocessing (grayscale,
+                                    frame-skipping, resizing) to stabilize and accelerate learning
+                                </li>
+                                <li>
+                                    Tuned hyperparameters across training runs, evaluating
+                                    performance by mean episode reward and standard deviation
+                                </li>
+                            </ul>
+                        </article>
+
+                        <article class="entry">
+                            <h3><a href="#">Academic Integrity Code Submission System</a></h3>
+                            <div class="chips">
+                                <span class="chip" data-tool="react">React</span>
+                                <span class="chip" data-tool="typescript">TypeScript</span>
+                                <span class="chip" data-tool="vite">Vite</span>
+                                <span class="chip" data-tool="postgresql">PostgreSQL</span>
+                            </div>
+                            <ul>
+                                <li>
+                                    Led frontend development of a plagiarism detection web app in an
+                                    Agile team, building a single-page application with React 19,
+                                    TypeScript and Vite
+                                </li>
+                                <li>
+                                    Designed an interactive code comparison view rendering
+                                    side-by-side diffs with highlighted match regions and line
+                                    numbers
+                                </li>
+                                <li>
+                                    Led the PostgreSQL 16 schema design for assignments, submissions
+                                    and users, and integrated frontend views with microservices for
+                                    instructor dashboards and JWT authentication
+                                </li>
+                            </ul>
+                        </article>
+
+                        <article class="entry">
+                            <div class="entry-head">
+                                <h3>Electricity Grid Telemetry Pipeline</h3>
+                                <span class="date">In progress</span>
+                            </div>
+                            <ul>
+                                <li>
+                                    End-to-end pipeline for ingesting, cleaning and modelling
+                                    electricity grid telemetry
+                                </li>
+                            </ul>
+                        </article>
+                    </div>
+                </section>
+
+                <section>
+                    <h2>Extracurricular</h2>
+                    <div class="stack">
+                        <article class="entry">
+                            <div class="entry-head">
+                                <h3>CS Games 2026 — 1st Place, AI Competition</h3>
+                                <span class="date">Mar 2026</span>
+                            </div>
+                            <p class="meta">Polytechnique Montréal</p>
+                            <ul>
+                                <li>
+                                    Designed and developed an autonomous AI agent for a simulated
+                                    Texas Hold'em tournament against university teams, finishing 1st
+                                    and significantly outperforming all 21 other competitors
+                                </li>
+                                <li>
+                                    Combined Chen Formula hand-strength scoring (preflop) with Monte
+                                    Carlo equity simulation and pot-odds analysis (postflop) to
+                                    drive raise/call/fold decisions within a 100 ms per-action
+                                    budget
+                                </li>
+                                <li>
+                                    Represented Brock's Computer Science Department, collaborating
+                                    with a teammate to architect and deploy the winning algorithm
+                                </li>
+                            </ul>
+                        </article>
+
+                        <article class="entry">
+                            <div class="entry-head">
+                                <h3>Brock Computer Science Club — Secretary &amp; Treasurer</h3>
+                                <span class="date">2023 – 2026</span>
+                            </div>
+                            <p class="meta">Brock University</p>
+                            <ul>
+                                <li>
+                                    Spearheaded post-pandemic restructuring efforts, resulting in a
+                                    50% increase in event attendance and renewed member engagement
+                                </li>
+                                <li>
+                                    Coordinated with the Computer Science department to host events
+                                    and workshops that supplemented the academic curriculum
+                                </li>
+                                <li>
+                                    Oversaw administrative compliance and record-keeping, ensuring
+                                    accurate meeting minutes and event logistics
+                                </li>
+                            </ul>
+                        </article>
+                    </div>
+                </section>
+
+                <footer>© 2026 Ray Huang</footer>
+            </main>
         </div>
-      </section>
 
-      <section>
-        <h2>Extracurricular</h2>
-        <div class="stack">
+        <script>
+            // Cursor-following grid glow. Mouse only — touch devices just see the plain grid.
+            (function () {
+                const page = document.getElementById("page");
+                let frame = null;
+                let x = 0,
+                    y = 0;
 
-          <article class="entry">
-            <div class="entry-head">
-              <h3>CS Games 2026 — 1st Place, AI Competition</h3>
-              <span class="date">Mar 2026</span>
-            </div>
-            <p class="meta">Polytechnique Montréal</p>
-            <ul>
-              <li>Designed and developed an autonomous AI agent for a simulated Texas Hold'em tournament against university teams, finishing 1st and significantly outperforming all 21 other competitors</li>
-              <li>Combined Chen Formula hand-strength scoring (preflop) with Monte Carlo equity simulation and pot-odds analysis (postflop) to drive raise/call/fold decisions within a 100 ms per-action budget</li>
-              <li>Represented Brock's Computer Science Department, collaborating with a teammate to architect and deploy the winning algorithm</li>
-            </ul>
-          </article>
+                page.addEventListener("pointermove", function (e) {
+                    if (e.pointerType !== "mouse") return;
+                    const rect = page.getBoundingClientRect();
+                    x = e.clientX - rect.left;
+                    y = e.clientY - rect.top;
+                    if (frame) return;
+                    frame = requestAnimationFrame(function () {
+                        frame = null;
+                        page.style.setProperty("--mx", x + "px");
+                        page.style.setProperty("--my", y + "px");
+                        page.classList.add("is-hovering");
+                    });
+                });
 
-          <article class="entry">
-            <div class="entry-head">
-              <h3>Brock Computer Science Club — Secretary &amp; Treasurer</h3>
-              <span class="date">2023 – 2026</span>
-            </div>
-            <p class="meta">Brock University</p>
-            <ul>
-              <li>Spearheaded post-pandemic restructuring efforts, resulting in a 50% increase in event attendance and renewed member engagement</li>
-              <li>Coordinated with the Computer Science department to host events and workshops that supplemented the academic curriculum</li>
-              <li>Oversaw administrative compliance and record-keeping, ensuring accurate meeting minutes and event logistics</li>
-            </ul>
-          </article>
-
-        </div>
-      </section>
-
-      <footer>© 2026 Ray Huang</footer>
-    </main>
-  </div>
-
-  <script>
-    // Cursor-following grid glow. Mouse only — touch devices just see the plain grid.
-    (function () {
-      const page = document.getElementById('page');
-      let frame = null;
-      let x = 0, y = 0;
-
-      page.addEventListener('pointermove', function (e) {
-        if (e.pointerType !== 'mouse') return;
-        const rect = page.getBoundingClientRect();
-        x = e.clientX - rect.left;
-        y = e.clientY - rect.top;
-        if (frame) return;
-        frame = requestAnimationFrame(function () {
-          frame = null;
-          page.style.setProperty('--mx', x + 'px');
-          page.style.setProperty('--my', y + 'px');
-          page.classList.add('is-hovering');
-        });
-      });
-
-      page.addEventListener('pointerleave', function () {
-        page.classList.remove('is-hovering');
-      });
-    })();
-  </script>
-</body>
+                page.addEventListener("pointerleave", function () {
+                    page.classList.remove("is-hovering");
+                });
+            })();
+        </script>
+    </body>
 </html>
