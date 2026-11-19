@@ -199,6 +199,20 @@
                 border-radius: 8px;
             }
 
+            .entry-logos {
+                display: flex;
+                flex-wrap: wrap;
+                align-items: center;
+                gap: 12px;
+                margin-top: 14px;
+            }
+
+            .entry-logos .entry-logo {
+                width: auto;
+                height: 72px;
+                margin-top: 0;
+            }
+
             .entry-head {
                 display: flex;
                 flex-wrap: wrap;
@@ -436,49 +450,112 @@
 
                 <section>
                     <h2>Experience</h2>
-                    <article class="entry">
-                        <div class="entry-head">
-                            <h3>Research Assistant, Data Pipeline &amp; Automation</h3>
-                            <span class="date">May - Dec 2024</span>
-                        </div>
-                        <p class="meta">Brock University</p>
-                        <div class="chips">
-                            <span class="chip" data-tool="python">Python</span>
-                            <span class="chip" data-tool="sklearn">scikit-learn</span>
-                            <span class="chip" data-tool="colab">Google Colab</span>
-                        </div>
-                        <ul>
-                            <li>
-                                Engineered a Python-based ETL pipeline to scrape, clean and
-                                structure academic integrity policies across 100+ post-secondary
-                                institutions, automating extraction with 95% accuracy and flagging
-                                edge cases for manual review
-                            </li>
-                            <li>
-                                Applied NLP and text-modelling techniques with scikit-learn to
-                                validate data quality and prepare structured policy data for
-                                analysis
-                            </li>
-                            <li>
-                                Awarded a competitive $5,000 Match of Minds research grant for a
-                                project analyzing academic integrity policy trends across Canada
-                            </li>
-                            <li>
-                                Published and maintained a reproducible
-                                <a class="inline-link" href="https://doi.org/10.5683/SP3/P5TPTE"
-                                    >dataset</a
-                                >
-                                used by the research community, with 2,700+ downloads
-                            </li>
-                        </ul>
-                        <img
-                            class="entry-logo"
-                            src="images/brock-logo.svg"
-                            alt="Brock University logo"
-                            width="152"
-                            height="92"
-                        />
-                    </article>
+                    <div class="stack">
+                        <article class="entry">
+                            <div class="entry-head">
+                                <h3>
+                                    Research Assistant, Self-Supervised Learning &amp; Algorithmic
+                                    Fairness
+                                </h3>
+                                <span class="date">Sep 2025 - Apr 2026</span>
+                            </div>
+                            <p class="meta">
+                                Responsible and Applied Machine Learning Laboratory, Brock
+                                University
+                            </p>
+                            <div class="chips">
+                                <span class="chip" data-tool="python">Python</span>
+                                <span class="chip" data-tool="pytorch">PyTorch</span>
+                                <span class="chip" data-tool="sklearn">scikit-learn</span>
+                                <span class="chip" data-tool="pandas">Pandas</span>
+                                <span class="chip" data-tool="colab">Google Colab</span>
+                            </div>
+                            <ul>
+                                <li>
+                                    Designed and ran a controlled study of how data augmentation
+                                    affects group fairness in self-supervised learning, training 24
+                                    SimCLR models on CelebA in PyTorch
+                                </li>
+                                <li>
+                                    Built an end-to-end Python pipeline (PyTorch, scikit-learn,
+                                    pandas) to train models, extract features and evaluate 35
+                                    prediction targets on a 200K-image dataset, with caching and
+                                    checkpointing to run efficiently on cloud GPUs
+                                </li>
+                                <li>
+                                    Showed that a metric tracked on its own can be misleading: one
+                                    configuration cut the measured fairness gap by more than half
+                                    only because performance fell for every group. Identified the
+                                    single configuration that improved fairness and accuracy
+                                    together (+0.019 balanced accuracy)
+                                </li>
+                                <li>
+                                    Preparing a research paper on the findings for submission to the
+                                    Canadian Conference on Artificial Intelligence (Canadian AI)
+                                </li>
+                            </ul>
+                            <div class="entry-logos">
+                                <img
+                                    class="entry-logo"
+                                    src="images/raml-logo.svg"
+                                    alt="Responsible and Applied Machine Learning Laboratory logo"
+                                    width="1326"
+                                    height="706"
+                                />
+                                <img
+                                    class="entry-logo"
+                                    src="images/brock-logo.svg"
+                                    alt="Brock University logo"
+                                    width="152"
+                                    height="92"
+                                />
+                            </div>
+                        </article>
+
+                        <article class="entry">
+                            <div class="entry-head">
+                                <h3>Research Assistant, Data Pipeline &amp; Automation</h3>
+                                <span class="date">May - Dec 2024</span>
+                            </div>
+                            <p class="meta">Brock University</p>
+                            <div class="chips">
+                                <span class="chip" data-tool="python">Python</span>
+                                <span class="chip" data-tool="sklearn">scikit-learn</span>
+                                <span class="chip" data-tool="colab">Google Colab</span>
+                            </div>
+                            <ul>
+                                <li>
+                                    Engineered a Python-based ETL pipeline to scrape, clean and
+                                    structure academic integrity policies across 100+ post-secondary
+                                    institutions, automating extraction with 95% accuracy and
+                                    flagging edge cases for manual review
+                                </li>
+                                <li>
+                                    Applied NLP and text-modelling techniques with scikit-learn to
+                                    validate data quality and prepare structured policy data for
+                                    analysis
+                                </li>
+                                <li>
+                                    Awarded a competitive $5,000 Match of Minds research grant for a
+                                    project analyzing academic integrity policy trends across Canada
+                                </li>
+                                <li>
+                                    Published and maintained a reproducible
+                                    <a class="inline-link" href="https://doi.org/10.5683/SP3/P5TPTE"
+                                        >dataset</a
+                                    >
+                                    used by the research community, with 3,000+ downloads
+                                </li>
+                            </ul>
+                            <img
+                                class="entry-logo"
+                                src="images/brock-logo.svg"
+                                alt="Brock University logo"
+                                width="152"
+                                height="92"
+                            />
+                        </article>
+                    </div>
                 </section>
 
                 <section>
@@ -519,34 +596,6 @@
                 <section>
                     <h2>Projects</h2>
                     <div class="stack">
-                        <article class="entry">
-                            <div class="entry-head">
-                                <h3>
-                                    <a href="#"
-                                        >Self-Supervised Learning &amp; Algorithmic Fairness</a
-                                    >
-                                </h3>
-                                <span class="date">Research · In progress</span>
-                            </div>
-                            <div class="chips">
-                                <span class="chip" data-tool="python">Python</span>
-                                <span class="chip" data-tool="pytorch">PyTorch</span>
-                                <span class="chip" data-tool="colab">Google Colab</span>
-                            </div>
-                            <ul>
-                                <li>
-                                    Developed a SimCLR contrastive learning framework in PyTorch to
-                                    extract robust features from high-dimensional data (CelebA and
-                                    FairFace) without manual labelling
-                                </li>
-                                <li>
-                                    Designed and ran an audit of augmentation pipelines, evaluating
-                                    their impact on model fairness and subgroup alignment to detect
-                                    algorithmic bias
-                                </li>
-                            </ul>
-                        </article>
-
                         <article class="entry">
                             <h3><a href="#">Reinforcement Learning Agent for Atari Gameplay</a></h3>
                             <div class="chips">
